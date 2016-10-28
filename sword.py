@@ -38,7 +38,11 @@ def request_service_doc():
     if (not user_id or not user_passwd):
         print('Need to set credentials')
         return
-    url = 'http://' + host_ip + ':' + str(port_number) + '/sword/service_document'
+    if not port_number:
+        print("Port not set")
+        url = 'http://' + host_ip + '/sword/service_document'
+    else:
+        url = 'http://' + host_ip + ':' + str(port_number) + '/sword/service_document'
     return requests.get(url,auth=(user_id,user_passwd))
     
 def post_deposit_http(collection_slug,file_arg):
