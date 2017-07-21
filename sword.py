@@ -53,6 +53,7 @@ def post_deposit_http(collection_slug,file_arg):
         url = 'http://' + host_ip + '/sword/deposit/' + collection_slug
     else:
         url = 'http://' + host_ip + ':' + str(port_number) + '/sword/deposit/' + collection_slug
+    print('Depositing to ' + url)
     response = requests.post(url,auth=(user_id,user_passwd), headers=headers_data, data=open(file_arg,'rb'))
     return response
 
@@ -64,6 +65,7 @@ def post_deposit_https(collection_slug,file_arg):
         url = 'https://' + host_ip + '/sword/deposit/' + collection_slug
     else:
         url = 'https://' + host_ip + ':' + str(port_number) + '/sword/deposit/' + collection_slug
+    print('Depositing to ' + url)
     response = requests.post(url,auth=(user_id,user_passwd), headers=headers_data, data=open(file_arg,'rb'))
     return response
 
