@@ -33,16 +33,23 @@ def check_settings():
         msg.append('port_number not set')
     return msg
 
-def request_service_doc():
+def request_service_doc(url_suffix):
     check_settings()
+    allowed_url_suffix = {'servicedocument',
+                          'service-document',
+                          'service_document'}
+    if (url_suffix not in allowed_url_suffix):
+        print('url_suffix is invalid')
+        return
     if (not user_id or not user_passwd):
         print('Need to set credentials')
         return
     if not port_number:
         print("Port not set")
-        url = 'http://' + host_ip + '/sword/service_document'
+        url = 'https://' + host_ip + '/sword/' + url_suffix
     else:
-        url = 'http://' + host_ip + ':' + str(port_number) + '/sword/service_document'
+        url = 'https://' + host_ip + ':' + str(port_number) + '/sword/' + url_suffix
+    print('Sending service document request to ' + url)
     return requests.get(url,auth=(user_id,user_passwd))
     
 def post_deposit_http(collection_slug,file_arg):
